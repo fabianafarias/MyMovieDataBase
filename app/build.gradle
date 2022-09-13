@@ -66,10 +66,10 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.10.0"
 
     // Koin for Android
-    implementation "io.insert-koin:koin-android:$koin_version"
-    implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-android-viewmodel:$koin_version"
-    implementation "org.koin:koin-androidx-scope:$koin_version"
+    implementation "io.insert-koin:koin-android:3.2.0"
+    implementation "org.koin:koin-android:3.2.0"
+    implementation "org.koin:koin-android-viewmodel:3.2.0"
+    implementation "org.koin:koin-androidx-scope:3.2.0"
 
     //coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android'
