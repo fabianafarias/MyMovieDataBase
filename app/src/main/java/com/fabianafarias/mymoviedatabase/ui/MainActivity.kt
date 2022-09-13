@@ -1,7 +1,8 @@
-package com.fabianafarias.mymoviedatabase
+package com.fabianafarias.mymoviedatabase.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.fabianafarias.mymoviedatabase.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
