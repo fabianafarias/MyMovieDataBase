@@ -1,4 +1,4 @@
-package com.fabianafarias.mymoviedatabase.ui
+package com.fabianafarias.mymoviedatabase.ui.movies
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

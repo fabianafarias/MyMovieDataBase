@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -38,7 +38,7 @@
             android:textColor="@color/white"/>
 
         <TextView
-            android:id="@+id/tv_genre"
+            android:id="@+id/genre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Action"
@@ -46,11 +46,11 @@
             android:maxLines="1"
             android:fontFamily="@font/poppins"
             android:textColor="@color/white_opacity"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintStart_toStartOf="@id/tv_title"/>
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintStart_toStartOf="@id/title"/>
 
         <TextView
-            android:id="@+id/tv_release_date"
+            android:id="@+id/releaseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins"
@@ -60,22 +60,22 @@
             android:drawablePadding="5dp"
             android:textSize="10sp"
             android:textColor="@color/white_opacity"
-            app:layout_constraintTop_toTopOf="@+id/tv_genre"
-            app:layout_constraintBottom_toBottomOf="@id/tv_genre"
-            app:layout_constraintStart_toEndOf="@id/tv_genre"
+            app:layout_constraintTop_toTopOf="@+id/genre"
+            app:layout_constraintBottom_toBottomOf="@id/genre"
+            app:layout_constraintStart_toEndOf="@id/genre"
             tools:text="22-10-2019 | "/>
 
         <TextView
-            android:id="@+id/tv_rating"
+            android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10sp"
             android:fontFamily="@font/poppins_bold"
             android:textColor="@color/white_opacity"
             tools:text="9.5"
-            app:layout_constraintTop_toTopOf="@id/tv_genre"
-            app:layout_constraintBottom_toBottomOf="@id/tv_genre"
-            app:layout_constraintStart_toEndOf="@id/tv_release_date"
+            app:layout_constraintTop_toTopOf="@id/genre"
+            app:layout_constraintBottom_toBottomOf="@id/genre"
+            app:layout_constraintStart_toEndOf="@id/releaseDate"
             />
 
 
