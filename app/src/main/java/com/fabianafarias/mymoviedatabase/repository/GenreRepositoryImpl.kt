@@ -1,6 +1,6 @@
 package com.fabianafarias.mymoviedatabase.repository
 
-import com.fabianafarias.mymoviedatabase.model.Genre
+import com.fabianafarias.mymoviedatabase.model.GenreModel
 import com.fabianafarias.mymoviedatabase.network.ApiGenreService
 import retrofit2.Response
 
@@ -8,11 +8,11 @@ class GenreRepositoryImpl(
     private val apiGenreService: ApiGenreService
     ) : GenreRepository {
 
-    override suspend fun getGenreMovies(): GenreRepositoryResult<List<Genre>> {
+    override suspend fun getGenreMovies(): GenreRepositoryResult<List<GenreModel>> {
         return proccessResponse(apiGenreService.getGenreMovies())
     }
 
-    private fun <T> proccessResponse(response: Response<List<Genre>>
+    private fun <T> proccessResponse(response: Response<List<GenreModel>>
     ) : GenreRepositoryResult<T> {
         return when (response.code()){
             in 200..299 -> {

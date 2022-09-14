@@ -6,7 +6,7 @@ import com.fabianafarias.mymoviedatabase.repository.GenreRepository
 import com.fabianafarias.mymoviedatabase.repository.GenreRepositoryImpl
 import com.fabianafarias.mymoviedatabase.repository.MovieRepository
 import com.fabianafarias.mymoviedatabase.repository.MovieRepositoryImpl
-import com.fabianafarias.mymoviedatabase.viewmodel.MainViewModel
+import com.fabianafarias.mymoviedatabase.viewmodel.MovieViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -42,6 +42,6 @@ val repositoryModule = module {
 }
 
 val viewModelModule = module {
-    viewModel { MainViewModel(get(), get()) }
+    viewModel { MovieViewModel(get(), get()) }
 }
 

@@ -1,26 +1,25 @@
 package com.fabianafarias.mymoviedatabase.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fabianafarias.mymoviedatabase.model.Genre
-import com.fabianafarias.mymoviedatabase.model.Movie
+import com.fabianafarias.mymoviedatabase.model.GenreModel
+import com.fabianafarias.mymoviedatabase.model.MovieModel
 import com.fabianafarias.mymoviedatabase.repository.*
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val movieRepository: MovieRepository,
-                    private val genreRepository: GenreRepository) : ViewModel() {
+class MovieViewModel(private val movieRepository: MovieRepository,
+                     private val genreRepository: GenreRepository) : ViewModel() {
 
-    private val _movieList = MutableLiveData<List<Movie>>()
-    val movieList: LiveData<List<Movie>> get() = _movieList
+    private val _movieList = MutableLiveData<List<MovieModel>>()
+    val movieList: LiveData<List<MovieModel>> get() = _movieList
 
     private val _movieError = MutableLiveData<MovieError>()
     val movieError: LiveData<MovieError> get() = _movieError
 
-    private val _genreList = MutableLiveData<List<Genre>>()
-    val genreList: LiveData<List<Genre>> get() = _genreList
+    private val _genreList = MutableLiveData<List<GenreModel>>()
+    val genreList: LiveData<List<GenreModel>> get() = _genreList
 
     private val _genreError = MutableLiveData<GenreError>()
     val genreError: LiveData<GenreError> get() = _genreError
@@ -31,7 +30,6 @@ class MainViewModel(private val movieRepository: MovieRepository,
                 is MovieRepositoryResult.Success -> {
                     result.movies.let { movies ->
                         _movieList.postValue(movies)
-                        Log.i("NP", "$movies")
                     }
 
                 }
@@ -56,7 +54,6 @@ class MainViewModel(private val movieRepository: MovieRepository,
                 is MovieRepositoryResult.Success -> {
                     result.movies.let { movies ->
                         _movieList.postValue(movies)
-                        Log.i("UC", "$movies")
 
                     }
                 }
@@ -81,7 +78,6 @@ class MainViewModel(private val movieRepository: MovieRepository,
                 is GenreRepositoryResult.Success -> {
                     result.genres.let { genres ->
                         _genreList.postValue(genres)
-                        Log.i("genres", "$genres")
                     }
                 }
                 is GenreRepositoryResult.Error -> {

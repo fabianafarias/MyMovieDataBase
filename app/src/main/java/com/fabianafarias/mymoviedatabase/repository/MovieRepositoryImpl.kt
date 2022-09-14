@@ -1,6 +1,6 @@
 package com.fabianafarias.mymoviedatabase.repository
 
-import com.fabianafarias.mymoviedatabase.model.Movie
+import com.fabianafarias.mymoviedatabase.model.MovieModel
 import com.fabianafarias.mymoviedatabase.network.ApiMovieService
 import retrofit2.Response
 
@@ -8,15 +8,15 @@ class MovieRepositoryImpl(
     private val apiMovieService: ApiMovieService
     ) : MovieRepository {
 
-    override suspend fun getMoviesNowPlaying(): MovieRepositoryResult<List<Movie>> {
+    override suspend fun getMoviesNowPlaying(): MovieRepositoryResult<List<MovieModel>> {
         return proccessResponse(apiMovieService.getMoviesNowPlaying())
     }
 
-    override suspend fun getMoviesUpComing(): MovieRepositoryResult<List<Movie>> {
+    override suspend fun getMoviesUpComing(): MovieRepositoryResult<List<MovieModel>> {
         return proccessResponse(apiMovieService.getMoviesUpcoming())
     }
 
-    private fun <T> proccessResponse(response: Response<List<Movie>>
+    private fun <T> proccessResponse(response: Response<List<MovieModel>>
     ) : MovieRepositoryResult<T> {
         return when (response.code()){
             in 200..299 -> {

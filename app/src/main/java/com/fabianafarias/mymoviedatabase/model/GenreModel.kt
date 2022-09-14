@@ -1,6 +1,6 @@
 package com.fabianafarias.mymoviedatabase.model
 
-data class Genre(
+data class GenreModel(
     val id: Int,
     val name: String
 )
