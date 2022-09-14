@@ -1,9 +1,12 @@
 package com.fabianafarias.mymoviedatabase.di
 
-import com.fabianafarias.mymoviedatabase.network.ApiService
+import com.fabianafarias.mymoviedatabase.network.ApiGenreService
+import com.fabianafarias.mymoviedatabase.network.ApiMovieService
+import com.fabianafarias.mymoviedatabase.repository.GenreRepository
+import com.fabianafarias.mymoviedatabase.repository.GenreRepositoryImpl
 import com.fabianafarias.mymoviedatabase.repository.MovieRepository
 import com.fabianafarias.mymoviedatabase.repository.MovieRepositoryImpl
-import com.fabianafarias.mymoviedatabase.viewmodel.MovieViewModel
+import com.fabianafarias.mymoviedatabase.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -22,7 +25,10 @@ val retrofitModule = module {
 
 val serviceModule = module {
     single {
-        get<Retrofit>().create(ApiService::class.java)
+        get<Retrofit>().create(ApiMovieService::class.java)
+    }
+    single {
+        get<Retrofit>().create(ApiGenreService::class.java)
     }
 }
 
@@ -30,9 +36,12 @@ val repositoryModule = module {
     single<MovieRepository> {
         MovieRepositoryImpl(get())
     }
+    single<GenreRepository> {
+        GenreRepositoryImpl(get())
+    }
 }
 
 val viewModelModule = module {
-    viewModel { MovieViewModel(get()) }
+    viewModel { MainViewModel(get(), get()) }
 }
 

@@ -10,7 +10,7 @@ import com.fabianafarias.mymoviedatabase.model.Movie
 import com.fabianafarias.mymoviedatabase.repository.*
 import kotlinx.coroutines.launch
 
-class MovieViewModel(private val movieRepository: MovieRepository,
+class MainViewModel(private val movieRepository: MovieRepository,
                     private val genreRepository: GenreRepository) : ViewModel() {
 
     private val _movieList = MutableLiveData<List<Movie>>()

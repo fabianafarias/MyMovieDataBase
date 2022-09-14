@@ -4,12 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.fabianafarias.mymoviedatabase.R
 import com.fabianafarias.mymoviedatabase.databinding.ActivityMainBinding
-import com.fabianafarias.mymoviedatabase.repository.MovieRepository
-import com.fabianafarias.mymoviedatabase.viewmodel.MovieViewModel
+import com.fabianafarias.mymoviedatabase.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var movieViewModel: MovieViewModel
+    lateinit var movieViewModel: MainViewModel
     lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
