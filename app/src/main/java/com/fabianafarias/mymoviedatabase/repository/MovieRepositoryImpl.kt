@@ -1,12 +1,23 @@
 package com.fabianafarias.mymoviedatabase.repository
 
 import com.fabianafarias.mymoviedatabase.model.Movie
-import com.fabianafarias.mymoviedatabase.network.ApiService
+import com.fabianafarias.mymoviedatabase.network.ApiMovieService
 import retrofit2.Response
 
-class MovieRepositoryImpl( private val apiService: ApiService ) : MovieRepository {
+class MovieRepositoryImpl(
+    private val apiMovieService: ApiMovieService
+    ) : MovieRepository {
 
-    private fun <T> proccessResponse(response: Response<List<Movie>>) : MovieRepositoryResult<T> {
+    override suspend fun getMoviesNowPlaying(): MovieRepositoryResult<List<Movie>> {
+        return proccessResponse(apiMovieService.getMoviesNowPlaying())
+    }
+
+    override suspend fun getMoviesUpComing(): MovieRepositoryResult<List<Movie>> {
+        return proccessResponse(apiMovieService.getMoviesUpcoming())
+    }
+
+    private fun <T> proccessResponse(response: Response<List<Movie>>
+    ) : MovieRepositoryResult<T> {
         return when (response.code()){
             in 200..299 -> {
                 response.body()?.let {
@@ -18,14 +29,5 @@ class MovieRepositoryImpl( private val apiService: ApiService ) : MovieRepositor
             else -> MovieRepositoryResult.Error(MovieError.GENERIC)
         }
     }
-
-    override suspend fun getMoviesNowPlaying(): MovieRepositoryResult<List<Movie>> {
-        return proccessResponse(apiService.getMoviesNowPlaying())
-    }
-
-    override suspend fun getMoviesUpComing(): MovieRepositoryResult<List<Movie>> {
-        return proccessResponse(apiService.getMoviesUpcoming())
-    }
-
 
 }
