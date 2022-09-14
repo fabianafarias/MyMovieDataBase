@@ -1,9 +1,6 @@
 package com.fabianafarias.mymoviedatabase.di
 
-import com.fabianafarias.mymoviedatabase.network.ApiGenreService
 import com.fabianafarias.mymoviedatabase.network.ApiMovieService
-import com.fabianafarias.mymoviedatabase.repository.GenreRepository
-import com.fabianafarias.mymoviedatabase.repository.GenreRepositoryImpl
 import com.fabianafarias.mymoviedatabase.repository.MovieRepository
 import com.fabianafarias.mymoviedatabase.repository.MovieRepositoryImpl
 import com.fabianafarias.mymoviedatabase.viewmodel.MovieViewModel
@@ -27,21 +24,17 @@ val serviceModule = module {
     single {
         get<Retrofit>().create(ApiMovieService::class.java)
     }
-    single {
-        get<Retrofit>().create(ApiGenreService::class.java)
-    }
 }
 
 val repositoryModule = module {
     single<MovieRepository> {
-        MovieRepositoryImpl(get())
-    }
-    single<GenreRepository> {
-        GenreRepositoryImpl(get())
+        MovieRepositoryImpl()
     }
 }
 
 val viewModelModule = module {
-    viewModel { MovieViewModel(get(), get()) }
+    viewModel {
+        MovieViewModel()
+    }
 }
 

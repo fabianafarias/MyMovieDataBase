@@ -1,13 +1,13 @@
 package com.fabianafarias.mymoviedatabase.repository
 
-import com.fabianafarias.mymoviedatabase.model.MovieModel
+import com.fabianafarias.mymoviedatabase.model.MovieListModel
 
-sealed class MovieRepositoryResult<out T>(){
-    data class Success <T>(val movies: List<MovieModel>) : MovieRepositoryResult<T>()
-    class Error <T>(val movieError: MovieError) : MovieRepositoryResult<T>()
+sealed class MovieRepositoryResult {
+    data class Success (val movies: List<MovieListModel>) : MovieRepositoryResult()
+    class Error : MovieRepositoryResult()
 }
 
 interface MovieRepository {
-    suspend fun getMoviesNowPlaying() : MovieRepositoryResult<List<MovieModel>>
-    suspend fun getMoviesUpComing() : MovieRepositoryResult<List<MovieModel>>
+    suspend fun getMoviesNowPlaying() : MovieRepositoryResult
+    suspend fun getMoviesUpComing() : MovieRepositoryResult
 }

@@ -1,33 +1,50 @@
 package com.fabianafarias.mymoviedatabase.repository
 
-import com.fabianafarias.mymoviedatabase.model.MovieModel
+import com.fabianafarias.mymoviedatabase.model.MovieListModel
+import com.fabianafarias.mymoviedatabase.model.MovieResponse
 import com.fabianafarias.mymoviedatabase.network.ApiMovieService
-import retrofit2.Response
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class MovieRepositoryImpl(
-    private val apiMovieService: ApiMovieService
-    ) : MovieRepository {
+class MovieRepositoryImpl() : MovieRepository, KoinComponent {
 
-    override suspend fun getMoviesNowPlaying(): MovieRepositoryResult<List<MovieModel>> {
-        return proccessResponse(apiMovieService.getMoviesNowPlaying())
-    }
+    private val service: ApiMovieService by inject()
 
-    override suspend fun getMoviesUpComing(): MovieRepositoryResult<List<MovieModel>> {
-        return proccessResponse(apiMovieService.getMoviesUpcoming())
-    }
-
-    private fun <T> proccessResponse(response: Response<List<MovieModel>>
-    ) : MovieRepositoryResult<T> {
-        return when (response.code()){
-            in 200..299 -> {
-                response.body()?.let {
-                    MovieRepositoryResult.Success(it)
-                } ?: MovieRepositoryResult.Error(MovieError.GENERIC)
+    override suspend fun getMoviesNowPlaying(): MovieRepositoryResult {
+        val movies = service.getMoviesNowPlaying()
+        if (movies.isSuccessful) {
+            movies.body()?.let {
+                return getMoviesViewModelList(it)
             }
-            404 -> MovieRepositoryResult.Error(MovieError.NOT_FOUND)
-            401 -> MovieRepositoryResult.Error(MovieError.NOT_AUTHORIZED)
-            else -> MovieRepositoryResult.Error(MovieError.GENERIC)
         }
+        return MovieRepositoryResult.Error()
     }
+
+    override suspend fun getMoviesUpComing(): MovieRepositoryResult {
+        val movies = service.getMoviesUpcoming()
+        if (movies.isSuccessful) {
+            movies.body()?.let {
+                return getMoviesViewModelList(it)
+            }
+        }
+        return MovieRepositoryResult.Error()
+    }
+
+    suspend fun getMoviesViewModelList(movieResponse: MovieResponse) : MovieRepositoryResult {
+        val genres = service.getGenreMovies()
+        if (genres.isSuccessful) {
+            val movieListModelArray = arrayListOf<MovieListModel>()
+            genres.body()?.let { genreResponse ->
+                movieResponse.results.forEach {
+                    val movieListModel = MovieListModel(it, genreResponse.genres)
+                    movieListModelArray.add(movieListModel)
+                }
+                return MovieRepositoryResult.Success(movieListModelArray.toList())
+            }
+        }
+        return MovieRepositoryResult.Error()
+    }
+
+
 
 }
