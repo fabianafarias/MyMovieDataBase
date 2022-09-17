@@ -11,24 +11,39 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     private val movieViewModel: MovieViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+       val comingSoonBtn = binding.btnComingSoon
+       val nowPlayingBtn = binding.btnNowPlaying
+
         observeViewModel()
-
         getNowPlaying()
+        nowPlayingBtn.isSelected = true
 
-        binding.btnNowPlaying.setOnClickListener {
-            getNowPlaying()
+       comingSoonBtn.setOnClickListener{
+            //clear state
+            comingSoonBtn.isSelected = false
+            nowPlayingBtn.isSelected = false
+            // change state
+            comingSoonBtn.isSelected = true
+            nowPlayingBtn.isPressed = false
+            getUpComing()
         }
 
-        binding.btnComingSoon.setOnClickListener {
-            getUpComing()
+        nowPlayingBtn.setOnClickListener{
+            //clear state
+            comingSoonBtn.isSelected = false
+            nowPlayingBtn.isSelected = false
+            // change state
+            nowPlayingBtn.isSelected = true
+            comingSoonBtn.isPressed = false
+            getNowPlaying()
         }
 
     }
@@ -41,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getUpComing(){
         lifecycleScope.launch {
-            movieViewModel.getMoviesNowPlaying()
+            movieViewModel.getMoviesUpComing()
         }
     }
 
@@ -52,5 +67,6 @@ class MainActivity : AppCompatActivity() {
             binding.recyclerView.visibility = VISIBLE
         }
     }
+
 
 }
